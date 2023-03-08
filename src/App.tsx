@@ -1,19 +1,12 @@
-import React, { useState } from "react";
-import AddTodo from "./components/AddTodo";
+import React from "react";
 import TodoList from "./components/TodoList";
-export interface IList {
+export type IList = {
   id: number;
   title: string;
-}
+};
 
 function App() {
-  return (
-    <div>
-      <div>todolist</div>
-
-      <TodoList />
-    </div>
-  );
+  return <TodoList />;
 }
 
 export default App;

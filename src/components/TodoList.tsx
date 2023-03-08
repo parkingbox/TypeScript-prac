@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import AddTodo from "./AddTodo";
 import TodoItem from "./TodoItem";
 
-export interface IList {
+export type IList = {
   id: number;
   title: string;
-}
+};
 
 function TodoList() {
   const [title, setTitle] = useState("");
@@ -26,13 +26,19 @@ function TodoList() {
       id: todos.length + 1,
       title,
     };
+    if (title === "") {
+      alert("입력");
+      return;
+    }
     setTodos([...todos, newTodo]);
     setTitle("");
   }
   function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
   }
-
+  function onDeleteHandler(id: number) {
+    setTodos(todos.filter((item) => item.id !== id));
+  }
   return (
     <div>
       <AddTodo
@@ -42,7 +48,12 @@ function TodoList() {
       />
       <div>
         {todos.map((item) => (
-          <TodoItem key={item.id} title={item.title}></TodoItem>
+          <TodoItem
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            onDeleteHandler={onDeleteHandler}
+          />
         ))}
       </div>
     </div>

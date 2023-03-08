@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-interface IAddTodo {
+import React from "react";
+
+type IAddTodo = {
   onChangeHandler(e: React.ChangeEvent<HTMLInputElement>): void;
   onSubmitHandler(event: React.FormEvent<HTMLFormElement>): void;
   title: string;
-}
+};
 
 function AddTodo({ onChangeHandler, onSubmitHandler, title }: IAddTodo) {
   return (
