@@ -1,12 +1,8 @@
 import React from "react";
-import TodoList from "./components/TodoList";
-export type IList = {
-  id: number;
-  title: string;
-};
+import Router from "./Router";
 
 function App() {
-  return <TodoList />;
+  return <Router />;
 }
 
 export default App;

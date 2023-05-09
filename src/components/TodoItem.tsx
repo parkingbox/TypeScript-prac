@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { deleteTodo, ITodo } from "../redux/modules/todoSlice";
 
-interface ITodo {
-  id: number;
-  title: string;
-  onDeleteHandler(id: number): void;
-}
+function TodoItem({ id, title }: ITodo) {
+  const dispatch = useDispatch();
+  const [text, setText] = useState("");
 
-function TodoItem({ id, title, onDeleteHandler }: ITodo) {
+  function deleteHandler(id: number) {
+    dispatch(deleteTodo(id));
+  }
+
   return (
-    <div>
+    <>
       <div>
         <p>{title}</p>
-        <button onClick={() => onDeleteHandler(id)}>삭제</button>
+        <button
+          onClick={() => {
+            deleteHandler(id);
+          }}
+        >
+          삭제
+        </button>
+        
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,20 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { RootState } from "../redux/config/configstore";
+import { addTodo, ITodo } from "../redux/modules/todoSlice";
 
-type IAddTodo = {
-  onChangeHandler(e: React.ChangeEvent<HTMLInputElement>): void;
-  onSubmitHandler(event: React.FormEvent<HTMLFormElement>): void;
-  title: string;
-};
+function AddTodo() {
+  const dispatch = useDispatch();
+  const todos = useSelector((state: RootState) => state.todos);
+  const [title, setTitle] = useState<string>("");
 
-function AddTodo({ onChangeHandler, onSubmitHandler, title }: IAddTodo) {
+  function onSubmitHandler(e: React.FormEvent<HTMLFormElement>): void {
+    e.preventDefault();
+    const newTodo: ITodo = {
+      id: todos.length + 1,
+      title,
+    };
+    dispatch(addTodo(newTodo));
+    setTitle("");
+  }
+  function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
+    setTitle(e.target.value);
+  }
   return (
     <div>
-      <form onSubmit={(e) => onSubmitHandler(e)}>
+      <form onSubmit={onSubmitHandler}>
         <input
           type="text"
           value={title}
           name="title"
-          onChange={(e) => onChangeHandler(e)}
+          onChange={onChangeHandler}
+          required
         />
         <button>추가</button>
       </form>
